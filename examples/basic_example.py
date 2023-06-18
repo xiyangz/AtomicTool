@@ -82,7 +82,7 @@ if __name__ == '__main__':
         'nodes.basic.CircleNode', name='circle node')
 
     # create group node.
-    n_group = graph.create_node('nodes.group.MyGroupNode')
+    # n_group = graph.create_node('nodes.group.MyGroupNode')
 
     n_output = graph.create_node('nodes.basic.OutputNode', name='output node')
     n_input = graph.create_node('nodes.basic.InputNode', name='input node')
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     n_text_input.set_output(0, n_checkbox.input(0))
     n_text_input.set_output(0, n_combo_menu.input(0))
     # (connect nodes using the .set_input method)
-    n_group.set_input(0, n_custom_ports.output(1))
+    # n_group.set_input(0, n_custom_ports.output(1))
     n_basic_b.set_input(2, n_checkbox.output(0))
     n_basic_b.set_input(2, n_combo_menu.output(1))
     # (connect nodes using the .connect_to method from the port object)
@@ -105,12 +105,14 @@ if __name__ == '__main__':
 
     # crate a backdrop node and wrap it around
     # "custom port node" and "group node".
-    n_backdrop = graph.create_node('Backdrop')
-    n_backdrop.wrap_nodes([n_custom_ports, n_combo_menu])
+    # n_backdrop = graph.create_node('Backdrop')
+    # n_backdrop.wrap_nodes([n_custom_ports, n_combo_menu])
 
     # fit nodes to the viewer.
+    # graph.reset_zoom()  # 初始化缩放
     graph.clear_selection()
-    graph.fit_to_selection()
+    graph.fit_to_selection()  # 找到所有存在组件的中心点，并居中显示
+
 
     # Custom builtin widgets from NodeGraphQt
     # ---------------------------------------
@@ -144,5 +146,6 @@ if __name__ == '__main__':
     nodes_palette.set_category_label('nodes.basic', 'Basic Nodes')
     nodes_palette.set_category_label('nodes.group', 'Group Nodes')
     # nodes_palette.show()
-
+    # graph._viewer.scale(2.0, 2.0)
+    # graph._viewer.scale(2.0, 2.0)
     app.exec()

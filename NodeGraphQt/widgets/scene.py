@@ -101,6 +101,7 @@ class NodeScene(QtWidgets.QGraphicsScene):
         elif self._grid_mode is ViewerEnum.GRID_DISPLAY_LINES.value:
             zoom = self.viewer().get_zoom()
             if zoom > -0.5:
+                # 基础的线
                 pen = QtGui.QPen(QtGui.QColor(*self.grid_color), 0.65)
                 self._draw_grid(
                     painter, rect, pen, ViewerEnum.GRID_SIZE.value
@@ -108,7 +109,8 @@ class NodeScene(QtWidgets.QGraphicsScene):
 
             color = QtGui.QColor(*self._bg_color).darker(150)
             if zoom < -0.0:
-                color = color.darker(100 - int(zoom * 110))
+                color = color.darker(100 - int(zoom * 90))
+            # 更浓的线
             pen = QtGui.QPen(color, 0.65)
             self._draw_grid(
                 painter, rect, pen, ViewerEnum.GRID_SIZE.value * 8

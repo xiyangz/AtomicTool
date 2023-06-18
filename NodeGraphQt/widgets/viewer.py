@@ -4,6 +4,7 @@ import math
 from distutils.version import LooseVersion
 
 from PySide6 import QtGui, QtCore, QtWidgets
+from PySide6.QtCore import QRectF
 
 from NodeGraphQt.base.menu import BaseMenu
 from NodeGraphQt.constants import (
@@ -23,7 +24,7 @@ from NodeGraphQt.widgets.dialogs import BaseDialog, FileDialog
 from NodeGraphQt.widgets.scene import NodeScene
 from NodeGraphQt.widgets.tab_search import TabSearchMenuWidget
 
-ZOOM_MIN = -0.95
+ZOOM_MIN = -0.5
 ZOOM_MAX = 2.0
 
 
@@ -213,6 +214,12 @@ class NodeViewer(QtWidgets.QGraphicsView):
             sensitivity (float): zoom sensitivity.
             pos (QtCore.QPoint): mapped position.
         """
+        zoom = self.get_zoom()
+        if ZOOM_MIN >= zoom and value < 0:
+            return
+        if ZOOM_MAX <= zoom and value > 0:
+            return
+
         if pos:
             pos = self.mapToScene(pos)
         if sensitivity is None:
@@ -224,13 +231,6 @@ class NodeViewer(QtWidgets.QGraphicsView):
             return
 
         scale = (0.9 + sensitivity) if value < 0.0 else (1.1 - sensitivity)
-        zoom = self.get_zoom()
-        if ZOOM_MIN >= zoom:
-            if scale == 0.9:
-                return
-        if ZOOM_MAX <= zoom:
-            if scale == 1.1:
-                return
         self.scale(scale, scale, pos)
 
     def _set_viewer_pan(self, pos_x, pos_y):
@@ -735,13 +735,13 @@ class NodeViewer(QtWidgets.QGraphicsView):
         super(NodeViewer, self).keyReleaseEvent(event)
 
         if event.key() == QtCore.Qt.Key.Key_Left:
-            self.shift(50, 0)
-        elif event.key() == QtCore.Qt.Key.Key_Right:
             self.shift(-50, 0)
+        elif event.key() == QtCore.Qt.Key.Key_Right:
+            self.shift(50, 0)
         elif event.key() == QtCore.Qt.Key.Key_Up:
-            self.shift(0, 50)
-        elif event.key() == QtCore.Qt.Key.Key_Down:
             self.shift(0, -50)
+        elif event.key() == QtCore.Qt.Key.Key_Down:
+            self.shift(0, 50)
 
         # hide and reset cursor text.
         self._cursor_text.setPlainText('')
@@ -1511,17 +1511,27 @@ class NodeViewer(QtWidgets.QGraphicsView):
             self.reset_zoom()
             return
         zoom = self.get_zoom()
-        if zoom < 0.0:
-            if not (ZOOM_MIN <= zoom <= ZOOM_MAX):
-                return
-        else:
-            if not (ZOOM_MIN <= value <= ZOOM_MAX):
-                return
-        value = value - zoom
+        # if zoom < 0.0:
+        #     if not (ZOOM_MIN <= zoom <= ZOOM_MAX):
+        #         return
+        # else:
+        #     if not (ZOOM_MIN <= value <= ZOOM_MAX):
+        #         return
+        value -= zoom
         self._set_viewer_zoom(value, 0.0)
 
     def zoom_to_nodes(self, nodes):
-        self._scene_range = self._combined_rect(nodes)
+        # self._scene_range = self._combined_rect(nodes)
+
+        min_x, min_y = nodes[0].xy_pos
+        for index in range(1, len(nodes)):
+            x, y = nodes[index].xy_pos
+            if min_x > x:
+                min_x = x
+            if min_y > y:
+                min_y = y
+
+        self._scene_range = QRectF(min_x - 20, min_y - 20, self.width(), self.height())
         self._update_scene()
 
         if self.get_zoom() > 0.1:
