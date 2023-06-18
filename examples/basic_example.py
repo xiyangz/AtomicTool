@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     # create node with custom text color and disable it.
     n_basic_a = graph.create_node(
-        'nodes.basic.BasicNodeA', text_color='#feab20')
+        'nodes.basic.BasicNodeA')  # , text_color='#feab20')
     n_basic_a.set_disabled(True)
 
     # create node and set a custom icon.
@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     # create node with the embedded QLineEdit widget.
     n_text_input = graph.create_node(
-        'nodes.widget.TextInputNode', name='text node', color='#0a1e20')
+        'nodes.widget.TextInputNode', name='text node', )  # color='#0a1e20')
 
     # create node with the embedded QCheckBox widgets.
     n_checkbox = graph.create_node(
@@ -77,9 +77,9 @@ if __name__ == '__main__':
     n_combo_menu = graph.create_node(
         'nodes.widget.DropdownMenuNode', name='combobox node')
 
-    # crete node with the circular design.
-    n_circle = graph.create_node(
-        'nodes.basic.CircleNode', name='circle node')
+    # # crete node with the circular design.
+    # n_circle = graph.create_node(
+    #     'nodes.basic.CircleNode', name='circle node')
 
     # create group node.
     # n_group = graph.create_node('nodes.group.MyGroupNode')

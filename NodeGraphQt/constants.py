@@ -72,8 +72,9 @@ class ViewerEnum(Enum):
     Node graph viewer styling layout:
     :py:mod:`NodeGraphQt.constants.ViewerEnum`
     """
-    #: default background color for the node graph.
-    BACKGROUND_COLOR = (255, 255, 255)  # (35, 35, 35)
+    # default background color for the node graph.
+    BACKGROUND_COLOR = (255, 255, 255)
+    # BACKGROUND_COLOR = (35, 35, 35)
     #: style node graph background with no grid or dots.
     GRID_DISPLAY_NONE = 0
     #: style node graph background with dots.
@@ -91,8 +92,9 @@ class ViewerNavEnum(Enum):
     Node graph viewer navigation styling layout:
     :py:mod:`NodeGraphQt.constants.ViewerNavEnum`
     """
-    #: default background color.
-    BACKGROUND_COLOR = (255, 255, 255)  # (25, 25, 25)
+    # default background color.
+    BACKGROUND_COLOR = (255, 255, 255)
+    # BACKGROUND_COLOR = (25, 25, 25)
     #: default item color.
     ITEM_COLOR = (35, 35, 35)
 
@@ -110,10 +112,19 @@ class NodeEnum(Enum):
     HEIGHT = 60
     #: default node icon size (WxH).
     ICON_SIZE = 18
-    #: default node overlay color when selected.
-    SELECTED_COLOR = (255, 255, 255, 30)
-    #: default node border color when selected.
+
+    # default node overlay color when selected.
+    # SELECTED_COLOR = (255, 255, 255, 30)
+    SELECTED_COLOR = (0, 0, 0, 45)
+
+    # default node border color when selected.
     SELECTED_BORDER_COLOR = (254, 207, 42, 255)
+
+    # BACKGROUND_COLOR = (13, 18, 23, 255)
+    BACKGROUND_COLOR = (242, 237, 232, 255)
+
+    # TEXT_COLOR = (255, 255, 255, 180)
+    TEXT_COLOR = (0, 0, 0, 180)
 
 # ==================================== PORT ====================================
 
@@ -125,18 +136,30 @@ class PortEnum(Enum):
     """
     #: default port size.
     SIZE = 22.0
-    #: default port color. (r, g, b, a)
-    COLOR = (49, 115, 100, 255)
-    #: default port border color.
-    BORDER_COLOR = (29, 202, 151, 255)
+
+    # default port color. (r, g, b, a)
+    # COLOR = (49, 115, 100, 255)
+    COLOR = (206, 140, 155, 255)
+
+    # default port border color.
+    # BORDER_COLOR = (29, 202, 151, 255)
+    BORDER_COLOR = (226, 53, 104, 255)
+
     #: port color when selected.
-    ACTIVE_COLOR = (14, 45, 59, 255)
-    #: port border color when selected.
-    ACTIVE_BORDER_COLOR = (107, 166, 193, 255)
-    #: port color on mouse over.
-    HOVER_COLOR = (17, 43, 82, 255)
-    #: port border color on mouse over.
-    HOVER_BORDER_COLOR = (136, 255, 35, 255)
+    # ACTIVE_COLOR = (14, 45, 59, 255)
+    ACTIVE_COLOR = (241, 210, 196, 255)
+
+    # port border color when selected.
+    # ACTIVE_BORDER_COLOR = (107, 166, 193, 255)
+    ACTIVE_BORDER_COLOR = (148, 89, 62, 255)
+
+    # port color on mouse over.
+    # HOVER_COLOR = (17, 43, 82, 255)
+    HOVER_COLOR = (238, 212, 173, 255)
+
+    # port border color on mouse over.
+    # HOVER_BORDER_COLOR = (136, 255, 35, 255)
+    HOVER_BORDER_COLOR = (119, 0, 220, 255)
     #: threshold for selecting a port.
     CLICK_FALLOFF = 15.0
 
@@ -162,9 +185,11 @@ class PipeEnum(Enum):
     #: default width.
     WIDTH = 1.2
     #: default color.
-    COLOR = (175, 95, 30, 255)
-    #: pipe color to a node when it's disabled.
-    DISABLED_COLOR = (200, 60, 60, 255)
+    # COLOR = (175, 95, 30, 255)
+    COLOR = (80, 160, 225, 255)
+    # pipe color to a node when it's disabled.
+    # DISABLED_COLOR = (200, 60, 60, 255)
+    DISABLED_COLOR = (55, 195, 195, 255)
     #: pipe color when selected or mouse over.
     ACTIVE_COLOR = (70, 255, 220, 255)
     #: pipe color to a node when it's selected.

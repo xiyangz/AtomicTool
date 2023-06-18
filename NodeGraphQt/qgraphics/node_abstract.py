@@ -22,9 +22,9 @@ class AbstractNodeItem(QtWidgets.QGraphicsItem):
         self._properties = {
             'id': None,
             'name': name.strip(),
-            'color': (13, 18, 23, 255),
+            'color': NodeEnum.BACKGROUND_COLOR.value,
             'border_color': (46, 57, 66, 255),
-            'text_color': (255, 255, 255, 180),
+            'text_color': NodeEnum.TEXT_COLOR.value,
             'type_': 'AbstractBaseNode',
             'selected': False,
             'disabled': False,

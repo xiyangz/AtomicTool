@@ -5,7 +5,8 @@ from collections import defaultdict
 from NodeGraphQt.constants import (
     LayoutDirectionEnum,
     NodePropWidgetEnum,
-    PipeLayoutEnum
+    PipeLayoutEnum,
+    NodeEnum
 )
 from NodeGraphQt.errors import NodePropertyError
 
@@ -62,9 +63,9 @@ class NodeModel(object):
         self.id = hex(id(self))
         self.icon = None
         self.name = 'node'
-        self.color = (13, 18, 23, 255)
+        self.color = NodeEnum.BACKGROUND_COLOR.value
         self.border_color = (74, 84, 85, 255)
-        self.text_color = (255, 255, 255, 220)
+        self.text_color = NodeEnum.TEXT_COLOR.value
         self.disabled = False
         self.selected = False
         self.visible = True
