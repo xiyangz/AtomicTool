@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
     # show the node graph widget.
     graph_widget = graph.widget
-    graph_widget.resize(1100, 800)
+    graph_widget.resize(800, 600)
     graph_widget.show()
 
     # create node with custom text color and disable it.

@@ -256,6 +256,11 @@ class NodeViewer(QtWidgets.QGraphicsView):
         )
         self._update_scene()
 
+    def shift(self, delta_x, delta_y):
+        self._scene_range = QtCore.QRectF(self._scene_range.left() + delta_x, self._scene_range.top() + delta_y,
+                                          self._scene_range.width(), self._scene_range.height())
+        self._update_scene()
+
     def _update_scene(self):
         """
         Redraw the scene.
@@ -702,17 +707,16 @@ class NodeViewer(QtWidgets.QGraphicsView):
         self._cursor_text.setVisible(False)
         if not self.ALT_state:
             if self.SHIFT_state:
-                overlay_text = '\n    SHIFT:\n    Toggle/Extend Selection'
+                overlay_text = '\n    SHIFT:\n    切换/扩展 选择'
             elif self.CTRL_state:
                 overlay_text = '\n    CTRL:\n    Deselect Nodes'
         elif self.ALT_state and self.SHIFT_state:
             if self.pipe_slicing:
-                overlay_text = '\n    ALT + SHIFT:\n    Pipe Slicer Enabled'
+                overlay_text = '\n    ALT + SHIFT:\n    启用连接切片'
         if overlay_text:
             self._cursor_text.setPlainText(overlay_text)
             self._cursor_text.setPos(self.mapToScene(self._previous_pos))
             self._cursor_text.setVisible(True)
-
         super(NodeViewer, self).keyPressEvent(event)
 
     def keyReleaseEvent(self, event):
@@ -729,6 +733,15 @@ class NodeViewer(QtWidgets.QGraphicsView):
         self.CTRL_state = event.modifiers() == QtCore.Qt.KeyboardModifier.ControlModifier
         self.SHIFT_state = event.modifiers() == QtCore.Qt.KeyboardModifier.ShiftModifier
         super(NodeViewer, self).keyReleaseEvent(event)
+
+        if event.key() == QtCore.Qt.Key.Key_Left:
+            self.shift(50, 0)
+        elif event.key() == QtCore.Qt.Key.Key_Right:
+            self.shift(-50, 0)
+        elif event.key() == QtCore.Qt.Key.Key_Up:
+            self.shift(0, 50)
+        elif event.key() == QtCore.Qt.Key.Key_Down:
+            self.shift(0, -50)
 
         # hide and reset cursor text.
         self._cursor_text.setPlainText('')

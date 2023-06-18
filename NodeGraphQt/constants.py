@@ -83,7 +83,7 @@ class ViewerEnum(Enum):
     #: grid size when styled with grid lines.
     GRID_SIZE = 50
     #: grid line color.
-    GRID_COLOR = (45, 45, 45)
+    GRID_COLOR = (225, 225, 225)  # (45, 45, 45)
 
 
 class ViewerNavEnum(Enum):
@@ -92,7 +92,7 @@ class ViewerNavEnum(Enum):
     :py:mod:`NodeGraphQt.constants.ViewerNavEnum`
     """
     #: default background color.
-    BACKGROUND_COLOR = (25, 25, 25)
+    BACKGROUND_COLOR = (255, 255, 255)  # (25, 25, 25)
     #: default item color.
     ITEM_COLOR = (35, 35, 35)
 
