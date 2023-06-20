@@ -11,6 +11,9 @@ from NodeGraphQt import (
     NodesTreeWidget,
     NodesPaletteWidget
 )
+from NodeGraphQt.constants import RunStatusEnum
+from NodeGraphQt.qgraphics.pipe import PipeItem
+from NodeGraphQt.qgraphics.port import PortItem
 
 # import example nodes from the "example_nodes" package
 from nodes import basic_nodes, custom_ports_node, group_node, widget_nodes, output_node, input_node
@@ -149,11 +152,12 @@ if __name__ == '__main__':
     # nodes_palette.show()
     # graph._viewer.scale(2.0, 2.0)
     # graph._viewer.scale(2.0, 2.0)
-    # for node in graph.all_nodes():
-    #     node.view.setEnabled(False)
-    #     for port in node.input_ports() + node.output_ports():
-    #         port.view.setEnabled(False)
-    #     for item in graph.scene().items():
-    #         item.setEnabled(False)
+    for node in graph.all_nodes():
+        node.view.setEnabled(False)
+        node.view.set_run_status(RunStatusEnum.RUNNING)
+        for item in graph.scene().items():
+            item.setEnabled(False)
+            if isinstance(item, PipeItem):
+                item.change_style_by_run_status(RunStatusEnum.RUNNING)
 
     app.exec()

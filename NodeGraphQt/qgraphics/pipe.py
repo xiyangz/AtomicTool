@@ -34,6 +34,7 @@ class PipeItem(QtWidgets.QGraphicsPathItem):
         self.setCacheMode(ITEM_CACHE_MODE)
 
         self._color = PipeEnum.COLOR.value
+        self._status = RunStatusEnum.NOT_RUN
         self._style = PipeEnum.DRAW_TYPE_DEFAULT.value
         self._active = False
         self._highlight = False
@@ -59,10 +60,23 @@ class PipeItem(QtWidgets.QGraphicsPathItem):
             self.__module__, in_name, out_name)
 
     def change_style_by_run_status(self, run_status: RunStatusEnum):
+        self._status = run_status
         if run_status == RunStatusEnum.NOT_RUN:
-            self._style = PipeEnum.DRAW_TYPE_DEFAULT.value
-        else:
-            pass
+            self._color = PipeEnum.COLOR.value
+        elif run_status == RunStatusEnum.WAIT_RUN:
+            self._color = PipeEnum.WAIT_COLOR.value
+        elif run_status == RunStatusEnum.RUNNING:
+            self._color = PipeEnum.WAIT_COLOR.value
+        elif run_status == RunStatusEnum.SUCCESS:
+            self._color = PipeEnum.SUCCESS_COLOR.value
+        elif run_status == RunStatusEnum.FAILED:
+            self._color = PipeEnum.FAILED_COLOR.value
+        self.set_pipe_styling(
+            color=self._color,
+            width=2.5,
+            style=PipeEnum.DRAW_TYPE_DEFAULT.value
+        )
+        self.update()
 
     def hoverEnterEvent(self, event):
         self.activate()

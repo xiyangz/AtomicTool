@@ -2,6 +2,7 @@
 from collections import OrderedDict
 
 from PySide6 import QtGui, QtCore, QtWidgets
+from PySide6.QtCore import QTimer
 
 from NodeGraphQt.constants import (
     ITEM_CACHE_MODE,
@@ -47,6 +48,10 @@ class NodeItem(AbstractNodeItem):
         self._widgets = OrderedDict()
         self._proxy_mode = False
         self._proxy_mode_threshold = 70
+        self._draw_timer = QTimer()
+        self._draw_timer.timeout.connect(self.update)
+        self._tick = 0
+        self._tick_dir = 10
 
     def post_init(self, viewer, pos=None):
         """
@@ -87,7 +92,8 @@ class NodeItem(AbstractNodeItem):
 
         # light overlay on background when selected.
         if self.run_status != RunStatusEnum.NOT_RUN:
-            pass
+            if self.run_status == RunStatusEnum.RUNNING:
+                pass
         elif self.selected:
             painter.setBrush(QtGui.QColor(*NodeEnum.SELECTED_COLOR.value))
             painter.drawRoundedRect(rect, radius, radius)
@@ -110,7 +116,31 @@ class NodeItem(AbstractNodeItem):
 
         # node border
         if self.run_status != RunStatusEnum.NOT_RUN:
-            pass
+            border_width = 6
+            if self.run_status == RunStatusEnum.RUNNING:
+                v = list(NodeEnum.SELECTED_BORDER_COLOR.value)
+                v[3] = 255 - self._tick
+                border_color = QtGui.QColor(
+                    *v
+                )
+                self._tick += self._tick_dir
+                if self._tick > 255:
+                    self._tick_dir = -10
+                    self._tick = 255
+                elif self._tick < 0:
+                    self._tick_dir = 10
+                    self._tick = 0
+            elif self.run_status == RunStatusEnum.FAILED:
+                border_color = QtGui.QColor(
+                    *NodeEnum.FAILED_BORDER_COLOR.value
+                )
+            elif self.run_status == RunStatusEnum.SUCCESS:
+                border_color = QtGui.QColor(
+                    *NodeEnum.SUCCESS_BORDER_COLOR.value
+                )
+            elif self.run_status == RunStatusEnum.WAIT_RUN:
+                border_color = QtGui.QColor(*NodeEnum.WAIT_BORDER_COLOR.value)
+
         elif self.selected:
             border_width = 1.2
             border_color = QtGui.QColor(
@@ -187,6 +217,13 @@ class NodeItem(AbstractNodeItem):
         painter.drawRoundedRect(border_rect, radius, radius)
 
         painter.restore()
+
+    def set_run_status(self, run_status: RunStatusEnum):
+        self._properties['run_status'] = run_status
+        if run_status == RunStatusEnum.RUNNING:
+            self._draw_timer.start(40)
+        else:
+            self._draw_timer.stop()
 
     def paint(self, painter, option, widget):
         """

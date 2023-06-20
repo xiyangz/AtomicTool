@@ -128,6 +128,10 @@ class NodeEnum(Enum):
     # default node border color when selected.
     SELECTED_BORDER_COLOR = (254, 207, 42, 255)
 
+    FAILED_BORDER_COLOR = (255, 0, 0, 255)
+    SUCCESS_BORDER_COLOR = (50, 205, 50, 255)
+    WAIT_BORDER_COLOR = (169, 169, 169, 255)
+
     # BACKGROUND_COLOR = (13, 18, 23, 255)
     BACKGROUND_COLOR = (242, 237, 232, 255)
 
@@ -204,6 +208,10 @@ class PipeEnum(Enum):
     ACTIVE_COLOR = (70, 255, 220, 255)
     #: pipe color to a node when it's selected.
     HIGHLIGHT_COLOR = (232, 184, 13, 255)
+
+    FAILED_COLOR = (255, 0, 0, 255)
+    SUCCESS_COLOR = (50, 205, 50, 255)
+    WAIT_COLOR = (169, 169, 169, 255)
     #: draw connection as a line.
     DRAW_TYPE_DEFAULT = 0
     #: draw connection as dashed lines.
