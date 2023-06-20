@@ -496,7 +496,7 @@ class NodeViewer(QtWidgets.QGraphicsView):
             # the shift modifier.
             return
 
-        if not self._LIVE_PIPE.isVisible():
+        if not self._LIVE_PIPE.isVisible() and self._LIVE_PIPE.isEnabled():
             super(NodeViewer, self).mousePressEvent(event)
 
     def mouseReleaseEvent(self, event):

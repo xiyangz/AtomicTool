@@ -35,7 +35,14 @@ Z_VAL_NODE_WIDGET = 3
 # QGraphicsItem.ItemCoordinateCache
 ITEM_CACHE_MODE = QtWidgets.QGraphicsItem.CacheMode.DeviceCoordinateCache
 
+
 # =================================== GLOBAL ===================================
+class RunStatusEnum(Enum):
+    NOT_RUN = 0  # 不在运行状态
+    WAIT_RUN = 1  # 等待运行中
+    RUNNING = 2  # 正在运行中
+    FAILED = 3  # 运行出错
+    SUCCESS = 4  # 运行成功
 
 
 class VersionEnum(Enum):
@@ -98,6 +105,7 @@ class ViewerNavEnum(Enum):
     #: default item color.
     ITEM_COLOR = (35, 35, 35)
 
+
 # ==================================== NODE ====================================
 
 
@@ -125,6 +133,7 @@ class NodeEnum(Enum):
 
     # TEXT_COLOR = (255, 255, 255, 180)
     TEXT_COLOR = (0, 0, 0, 180)
+
 
 # ==================================== PORT ====================================
 
@@ -173,6 +182,7 @@ class PortTypeEnum(Enum):
     IN = 'in'
     #: Connection type for output ports.
     OUT = 'out'
+
 
 # ==================================== PIPE ====================================
 

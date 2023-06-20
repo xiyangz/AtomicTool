@@ -10,7 +10,7 @@ from NodeGraphQt.constants import (
     PortTypeEnum,
     ITEM_CACHE_MODE,
     Z_VAL_PIPE,
-    Z_VAL_NODE_WIDGET
+    Z_VAL_NODE_WIDGET, RunStatusEnum
 )
 from NodeGraphQt.qgraphics.port import PortItem
 
@@ -57,6 +57,12 @@ class PipeItem(QtWidgets.QGraphicsPathItem):
         out_name = self._output_port.name if self._output_port else ''
         return '{}.Pipe(\'{}\', \'{}\')'.format(
             self.__module__, in_name, out_name)
+
+    def change_style_by_run_status(self, run_status: RunStatusEnum):
+        if run_status == RunStatusEnum.NOT_RUN:
+            self._style = PipeEnum.DRAW_TYPE_DEFAULT.value
+        else:
+            pass
 
     def hoverEnterEvent(self, event):
         self.activate()

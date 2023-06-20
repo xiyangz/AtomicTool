@@ -48,6 +48,7 @@ if __name__ == '__main__':
     graph_widget = graph.widget
     graph_widget.resize(800, 600)
     graph_widget.show()
+    # graph_widget.setDisabled(True)
 
     # create node with custom text color and disable it.
     n_basic_a = graph.create_node(
@@ -148,4 +149,11 @@ if __name__ == '__main__':
     # nodes_palette.show()
     # graph._viewer.scale(2.0, 2.0)
     # graph._viewer.scale(2.0, 2.0)
+    # for node in graph.all_nodes():
+    #     node.view.setEnabled(False)
+    #     for port in node.input_ports() + node.output_ports():
+    #         port.view.setEnabled(False)
+    #     for item in graph.scene().items():
+    #         item.setEnabled(False)
+
     app.exec()

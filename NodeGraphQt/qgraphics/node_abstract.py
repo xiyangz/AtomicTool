@@ -5,7 +5,8 @@ from NodeGraphQt.constants import (
     Z_VAL_NODE,
     ITEM_CACHE_MODE,
     LayoutDirectionEnum,
-    NodeEnum
+    NodeEnum,
+    RunStatusEnum
 )
 
 
@@ -29,6 +30,7 @@ class AbstractNodeItem(QtWidgets.QGraphicsItem):
             'selected': False,
             'disabled': False,
             'visible': False,
+            'run_status': RunStatusEnum.NOT_RUN,
             'layout_direction': LayoutDirectionEnum.HORIZONTAL.value,
         }
         self._width = NodeEnum.WIDTH.value
@@ -156,6 +158,10 @@ class AbstractNodeItem(QtWidgets.QGraphicsItem):
         if self._properties['selected'] != self.isSelected():
             self._properties['selected'] = self.isSelected()
         return self._properties['selected']
+
+    @property
+    def run_status(self):
+        return self._properties['run_status']
 
     @selected.setter
     def selected(self, selected=False):

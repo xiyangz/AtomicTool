@@ -10,7 +10,8 @@ from NodeGraphQt.constants import (
     NodeEnum,
     PortEnum,
     PortTypeEnum,
-    Z_VAL_NODE
+    Z_VAL_NODE,
+    RunStatusEnum
 )
 from NodeGraphQt.errors import NodeWidgetError
 from NodeGraphQt.qgraphics.node_abstract import AbstractNodeItem
@@ -85,7 +86,9 @@ class NodeItem(AbstractNodeItem):
         painter.drawRoundedRect(rect, radius, radius)
 
         # light overlay on background when selected.
-        if self.selected:
+        if self.run_status != RunStatusEnum.NOT_RUN:
+            pass
+        elif self.selected:
             painter.setBrush(QtGui.QColor(*NodeEnum.SELECTED_COLOR.value))
             painter.drawRoundedRect(rect, radius, radius)
 
@@ -96,14 +99,19 @@ class NodeItem(AbstractNodeItem):
                                   rect.y() + padding[1],
                                   rect.width() - padding[0] - margin,
                                   text_rect.height() - (padding[1] * 2))
-        if self.selected:
+
+        if self.run_status != RunStatusEnum.NOT_RUN:
+            pass
+        elif self.selected:
             painter.setBrush(QtGui.QColor(*NodeEnum.SELECTED_COLOR.value))
         else:
             painter.setBrush(QtGui.QColor(0, 0, 0, 80))
         painter.drawRoundedRect(text_rect, 3.0, 3.0)
 
         # node border
-        if self.selected:
+        if self.run_status != RunStatusEnum.NOT_RUN:
+            pass
+        elif self.selected:
             border_width = 1.2
             border_color = QtGui.QColor(
                 *NodeEnum.SELECTED_BORDER_COLOR.value
